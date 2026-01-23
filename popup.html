@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>IT Swiss Army Knife</title>
+  <style>
+    body { font-family: Arial; width: 320px; padding: 10px; }
+    h3 { margin-top: 15px; }
+    input, select, button { width: 100%; margin: 4px 0; }
+    textarea { width: 100%; height: 50px; }
+  </style>
+</head>
+<body>
+
+<h3>Password Generator</h3>
+Length <input type="number" id="pwLength" value="16" min="4">
+<label><input type="checkbox" id="pwUpper" checked> Uppercase</label>
+<label><input type="checkbox" id="pwLower" checked> Lowercase</label>
+<label><input type="checkbox" id="pwNumbers" checked> Numbers</label>
+<label><input type="checkbox" id="pwSymbols" checked> Symbols</label>
+<button id="genPassword">Generate</button>
+<textarea id="pwResult" readonly></textarea>
+
+<h3>Passphrase Generator</h3>
+Word Count <input type="number" id="ppWords" value="4" min="2">
+Separator <input type="text" id="ppSep" value="-">
+<select id="ppCase">
+  <option value="lower">lowercase</option>
+  <option value="upper">UPPERCASE</option>
+  <option value="title">TitleCase</option>
+</select>
+<button id="genPassphrase">Generate</button>
+<textarea id="ppResult" readonly></textarea>
+
+<h3>MAC Vendor Lookup</h3>
+<input type="text" id="macInput" placeholder="00:1A:2B:XX:XX:XX">
+<button id="lookupMac">Lookup</button>
+<textarea id="macResult" readonly></textarea>
+
+<script src="popup.js"></script>
+</body>
+</html>
