@@ -1,5 +1,14 @@
 const words = ["alpha","bravo","charlie","delta","server","packet","router"];
 let vendors = [];
+const natoAlphabet = [
+  ["A","Alpha"], ["B","Bravo"], ["C","Charlie"], ["D","Delta"], ["E","Echo"],
+  ["F","Foxtrot"], ["G","Golf"], ["H","Hotel"], ["I","India"], ["J","Juliett"],
+  ["K","Kilo"], ["L","Lima"], ["M","Mike"], ["N","November"], ["O","Oscar"],
+  ["P","Papa"], ["Q","Quebec"], ["R","Romeo"], ["S","Sierra"], ["T","Tango"],
+  ["U","Uniform"], ["V","Victor"], ["W","Whiskey"], ["X","X-ray"],
+  ["Y","Yankee"], ["Z","Zulu"]
+];
+
 
 fetch("mac_vendors.json")
   .then(r => r.json())
@@ -60,3 +69,17 @@ lookupMac.onclick = () => {
   let match = vendors.find(v => v.macPrefix.replace(/:/g, "") === prefix);
   macResult.value = match ? match.vendorName : "Unknown vendor";
 };
+
+const natoGrid = document.getElementById("natoGrid");
+
+natoAlphabet.forEach(([letter, word]) => {
+  const tile = document.createElement("div");
+  tile.className = "nato-tile";
+
+  tile.innerHTML = `
+    <div class="nato-letter">${letter}</div>
+    <div class="nato-word">${word.toLowerCase()}</div>
+  `;
+
+  natoGrid.appendChild(tile);
+});
