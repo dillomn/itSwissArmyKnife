@@ -3,39 +3,82 @@
 <head>
   <meta charset="UTF-8">
   <title>IT Swiss Army Knife</title>
-  <style>
-    body { font-family: Arial; width: 320px; padding: 10px; }
-    h3 { margin-top: 15px; }
-    input, select, button { width: 100%; margin: 4px 0; }
-    textarea { width: 100%; height: 50px; }
-  </style>
+  <link rel="stylesheet" href="popup.css">
 </head>
 <body>
 
-<h3>Password Generator</h3>
-Length <input type="number" id="pwLength" value="16" min="4">
-<label><input type="checkbox" id="pwUpper" checked> Uppercase</label>
-<label><input type="checkbox" id="pwLower" checked> Lowercase</label>
-<label><input type="checkbox" id="pwNumbers" checked> Numbers</label>
-<label><input type="checkbox" id="pwSymbols" checked> Symbols</label>
-<button id="genPassword">Generate</button>
-<textarea id="pwResult" readonly></textarea>
+<button data-open="pwWidget">🔐 Password Generator</button>
+<button data-open="ppWidget">🧠 Passphrase Generator</button>
+<button data-open="macWidget">🖧 MAC Vendor Lookup</button>
+<button data-open="natoWidget">🅽 NATO Alphabet</button>
 
-<h3>Passphrase Generator</h3>
-Word Count <input type="number" id="ppWords" value="4" min="2">
-Separator <input type="text" id="ppSep" value="-">
-<select id="ppCase">
-  <option value="lower">lowercase</option>
-  <option value="upper">UPPERCASE</option>
-  <option value="title">TitleCase</option>
-</select>
-<button id="genPassphrase">Generate</button>
-<textarea id="ppResult" readonly></textarea>
+<div id="pwWidget" class="widget hidden">
+  <h3>Password Generator</h3>
+  Length <input type="number" id="pwLength" value="16" min="4">
+  <label><input type="checkbox" id="pwUpper" checked> Uppercase</label>
+  <label><input type="checkbox" id="pwLower" checked> Lowercase</label>
+  <label><input type="checkbox" id="pwNumbers" checked> Numbers</label>
+  <label><input type="checkbox" id="pwSymbols" checked> Symbols</label>
+  <button id="genPassword">Generate</button>
+  <textarea id="pwResult" readonly></textarea>
+  <button id="copyPassword">📋 Copy</button>
+  <div class="strength">
+    <div id="pwStrength" class="strength-fill"></div>
+  </div>
+</div>
 
-<h3>MAC Vendor Lookup</h3>
-<input type="text" id="macInput" placeholder="00:1A:2B:XX:XX:XX">
-<button id="lookupMac">Lookup</button>
-<textarea id="macResult" readonly></textarea>
+<div id="ppWidget" class="widget hidden">
+  <h3>Passphrase Generator</h3>
+  Words <input type="number" id="ppWords" value="4">
+  Separator <input type="text" id="ppSep" value="-">
+  <select id="ppCase">
+    <option value="lower">lowercase</option>
+    <option value="upper">UPPERCASE</option>
+    <option value="title">TitleCase</option>
+  </select>
+  <button id="genPassphrase">Generate</button>
+  <textarea id="ppResult" readonly></textarea>
+  <button id="copyPassphrase">📋 Copy</button>
+</div>
+
+<div id="macWidget" class="widget hidden">
+  <h3>MAC Vendor Lookup</h3>
+  <input type="text" id="macInput" placeholder="00:00:0C:XX:XX:XX">
+  <button id="lookupMac">Lookup</button>
+  <textarea id="macResult" readonly></textarea>
+</div>
+
+<div id="natoWidget" class="widget hidden">
+  <h3>NATO Alphabet</h3>
+  <textarea readonly>
+A Alpha
+B Bravo
+C Charlie
+D Delta
+E Echo
+F Foxtrot
+G Golf
+H Hotel
+I India
+J Juliett
+K Kilo
+L Lima
+M Mike
+N November
+O Oscar
+P Papa
+Q Quebec
+R Romeo
+S Sierra
+T Tango
+U Uniform
+V Victor
+W Whiskey
+X X-ray
+Y Yankee
+Z Zulu
+  </textarea>
+</div>
 
 <script src="popup.js"></script>
 </body>

@@ -1,0 +1,53 @@
+body {
+  background: #121212;
+  color: #e0e0e0;
+  font-family: Arial, sans-serif;
+  width: 340px;
+  padding: 10px;
+}
+
+button {
+  background: #1f1f1f;
+  color: #fff;
+  border: 1px solid #333;
+  padding: 8px;
+  width: 100%;
+  margin: 4px 0;
+  cursor: pointer;
+}
+
+button:hover {
+  background: #333;
+}
+
+input, select, textarea {
+  width: 100%;
+  background: #1e1e1e;
+  color: #fff;
+  border: 1px solid #333;
+  margin: 4px 0;
+}
+
+textarea {
+  height: 60px;
+}
+
+.widget {
+  border: 1px solid #333;
+  padding: 10px;
+  margin-top: 10px;
+}
+
+.hidden {
+  display: none;
+}
+
+.strength {
+  height: 6px;
+  background: #333;
+  margin-top: 4px;
+}
+
+.strength-fill {
+  height: 100%;
+}
