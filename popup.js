@@ -241,7 +241,15 @@ document.addEventListener("keydown", (e) => {
 
 function toggleCrtMode() {
   const overlay = document.getElementById("crtOverlay");
-  if (overlay) overlay.classList.toggle("on");
+  if (overlay) {
+    overlay.classList.toggle("on");
+    // Toggle body class for text glitch effects
+    if (overlay.classList.contains("on")) {
+      document.body.classList.add("crt-mode-active");
+    } else {
+      document.body.classList.remove("crt-mode-active");
+    }
+  }
 }
 
 function triggerBsod() {

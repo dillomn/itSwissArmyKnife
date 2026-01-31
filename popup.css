@@ -291,20 +291,45 @@ textarea {
   color: #fff !important;
 }
 
-/* Easter Egg: CRT Scanlines */
+/* Easter Egg: CRT Scanlines (Aggressive) */
+@keyframes scanline-scroll {
+  0% { background-position: 0 0; }
+  100% { background-position: 0 100%; }
+}
+
+@keyframes crt-flicker {
+  0% { opacity: 0.85; }
+  5% { opacity: 0.95; }
+  10% { opacity: 0.85; }
+  15% { opacity: 0.95; }
+  100% { opacity: 0.85; }
+}
+
 .crt-overlay {
   position: fixed;
   top: 0; left: 0; width: 100%; height: 100%;
-  background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
-  background-size: 100% 2px, 3px 100%;
-  pointer-events: none; /* Let clicks pass through */
+  
+  /* Scanlines + Vignette + Noise */
+  background: 
+    linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.4) 50%), 
+    linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06)),
+    radial-gradient(circle, rgba(0,0,0,0) 60%, rgba(0,0,0,0.6) 100%);
+    
+  background-size: 100% 4px, 6px 100%, 100% 100%;
+  pointer-events: none;
   z-index: 999;
-  opacity: 0.6;
   display: none;
 }
 
 .crt-overlay.on {
   display: block;
+  animation: scanline-scroll 0.3s linear infinite, crt-flicker 0.1s infinite;
+}
+
+/* Glitchy Text Effect when CRT is ON */
+.crt-mode-active body {
+  text-shadow: 2px 0 rgba(255, 0, 0, 0.5), -2px 0 rgba(0, 0, 255, 0.5);
+  filter: contrast(1.2) brightness(1.1);
 }
 
 /* Easter Egg: BSOD */
