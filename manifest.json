@@ -7,6 +7,12 @@
     "activeTab",
     "storage"
   ],
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "it-swiss-army-knife@dillomn.com",
+      "strict_min_version": "109.0"
+    }
+  },
   "action": {
     "default_popup": "popup.html"
   }

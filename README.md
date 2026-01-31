@@ -20,27 +20,24 @@ Packed with quick-access tools that respect your intelligence and your dark mode
 
 ---
 
-## 📥 Installation
+## 📥 Installation (Firefox)
 
-This extension is currently side-loaded (Developer Mode).
+This extension is side-loaded as a Temporary Add-on.
 
 1.  **Download the Code:**
-    *   Click `Code` -> `Download ZIP` above, and extract it to a folder.
-    *   *Or* `git clone https://github.com/dillomn/itSwissArmyKnife.git`
+    *   `git clone -b firefox https://github.com/dillomn/itSwissArmyKnife.git`
+    *   (Or verify you are on the `firefox` branch).
 
-2.  **Open Extension Management:**
-    *   **Chrome:** Go to `chrome://extensions`
-    *   **Edge:** Go to `edge://extensions`
+2.  **Open Debugging:**
+    *   Go to `about:debugging` in the address bar.
+    *   Click **"This Firefox"** on the left.
 
-3.  **Enable Developer Mode:**
-    *   Toggle the switch in the top right corner.
+3.  **Load Temporary Add-on:**
+    *   Click **"Load Temporary Add-on..."**.
+    *   Select the `manifest.json` file from the downloaded folder.
 
-4.  **Load Unpacked:**
-    *   Click the **"Load unpacked"** button.
-    *   Select the folder where you extracted the files (select the folder containing `manifest.json`).
-
-5.  **Pin It:**
-    *   Click the puzzle piece icon in your toolbar and pin **IT Swiss Army Knife**.
+4.  **Note:**
+    *   Temporary add-ons are removed when you close Firefox. To install permanently, you would need to zip it and sign it via Mozilla Add-ons Developer Hub (or use Developer Edition with signature checks disabled).
 
 ## 🛡️ Privacy
 *   **Offline First:** All logic (passwords, MAC lookup, NATO) runs locally.
