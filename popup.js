@@ -165,31 +165,93 @@ document.addEventListener("keydown", (e) => {
   }
 });
 
-// NATO Easter Egg
-let natoSequence = 0; // Index of expected letter (0 = A)
+// NATO Easter Egg: A-Z unlocks RGB Mode (per key)
+let natoSequence = 0; 
 const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+let rgbUnlocked = false;
 
 function checkNatoEasterEgg(key) {
-  const expected = alphabet[natoSequence];
+  if (rgbUnlocked) return;
   
+  const expected = alphabet[natoSequence];
   if (key === expected) {
     natoSequence++;
     if (natoSequence === 26) {
-      // Trigger RGB Mode
-      triggerNatoParty();
+      rgbUnlocked = true;
+      // Flash 'Z' immediately to confirm
+      const zTile = document.querySelector(`.nato-tile[data-letter="Z"]`);
+      if (zTile) zTile.classList.add("rgb-unlocked");
     }
   } else {
-    // Reset if mistake
     natoSequence = 0;
-    // Check if they started over with 'A'
     if (key === 'A') natoSequence = 1;
   }
 }
 
-function triggerNatoParty() {
-  document.querySelectorAll(".nato-tile").forEach(tile => {
-    tile.classList.add("rgb-mode");
+function activateNatoTile(letter) {
+  // Remove active class from all tiles
+  document.querySelectorAll(".nato-tile").forEach(t => {
+    t.classList.remove("active");
+    // Don't remove rgb-unlocked class if it persists, 
+    // but here we want it only on ACTIVE state
+    t.classList.remove("rgb-unlocked"); 
   });
+  
+  // Add active class to target tile
+  const tile = document.querySelector(`.nato-tile[data-letter="${letter}"]`);
+  if (tile) {
+    tile.classList.add("active");
+    if (rgbUnlocked) {
+      tile.classList.add("rgb-unlocked");
+    }
+  }
+}
+
+// Global Easter Eggs (QWERTY & Spam)
+let keyBuffer = "";
+let spamCount = 0;
+let spamTimer = null;
+
+document.addEventListener("keydown", (e) => {
+  // QWERTY Check
+  keyBuffer += e.key.toLowerCase();
+  if (keyBuffer.length > 10) keyBuffer = keyBuffer.slice(-10);
+  
+  if (keyBuffer === "qwertyuiop") {
+    toggleCrtMode();
+  }
+  
+  // Spam Check (BSOD)
+  // Only count simple keys to avoid triggering on shortcuts
+  if (e.key.length === 1) {
+    spamCount++;
+    if (!spamTimer) {
+      spamTimer = setTimeout(() => {
+        spamCount = 0;
+        spamTimer = null;
+      }, 1000);
+    }
+    
+    if (spamCount > 15) {
+      triggerBsod();
+      spamCount = 0; // Reset to avoid double trigger
+    }
+  }
+});
+
+function toggleCrtMode() {
+  const overlay = document.getElementById("crtOverlay");
+  if (overlay) overlay.classList.toggle("on");
+}
+
+function triggerBsod() {
+  const bsod = document.getElementById("bsod");
+  if (bsod) {
+    bsod.style.display = "block";
+    setTimeout(() => {
+      bsod.style.display = "none";
+    }, 3000);
+  }
 }
 
 // CMD Cheatsheet
