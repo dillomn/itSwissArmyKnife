@@ -84,6 +84,12 @@ genPassword.onclick = () => {
   if (pwNumbers.checked) chars += "0123456789";
   if (pwSymbols.checked) chars += "!@#$%^&*()";
 
+  if (chars.length === 0) {
+    pwResult.value = "";
+    pwStrength.style.width = "0%";
+    return;
+  }
+
   let pw = "";
   for (let i = 0; i < pwLength.value; i++)
     pw += chars[Math.floor(Math.random() * chars.length)];
