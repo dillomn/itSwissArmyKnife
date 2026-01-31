@@ -21,6 +21,25 @@ const cmdCheatsheet = [
   { cmd: "taskkill /IM <name> /F", desc: "Force kill a process" }
 ];
 
+const linuxCheatsheet = [
+  { cmd: "ls -lah", desc: "List all files (human readable)" },
+  { cmd: "ps aux | grep <name>", desc: "Find running process" },
+  { cmd: "chmod +x <file>", desc: "Make file executable" },
+  { cmd: "chown user:group <file>", desc: "Change ownership" },
+  { cmd: "tar -czvf <name.tar.gz> <dir>", desc: "Compress directory" },
+  { cmd: "tail -f /var/log/syslog", desc: "Watch logs in real-time" },
+  { cmd: "ssh [email protected]", desc: "Connect via SSH" },
+  { cmd: "grep -r 'text' .", desc: "Search text in files recursively" },
+  { cmd: "df -h", desc: "Show disk usage" },
+  { cmd: "du -sh <dir>", desc: "Show directory size" },
+  { cmd: "systemctl restart <service>", desc: "Restart a service" },
+  { cmd: "journalctl -u <service> -f", desc: "Follow service logs" },
+  { cmd: "htop", desc: "Interactive process viewer" },
+  { cmd: "rsync -avz <src> <dest>", desc: "Sync files efficiently" },
+  { cmd: "netstat -tulpn", desc: "Show listening ports" },
+  { cmd: "curl -I <url>", desc: "Fetch HTTP headers" }
+];
+
 let vendors = [];
 const natoAlphabet = [
   ["A","Alpha"], ["B","Bravo"], ["C","Charlie"], ["D","Delta"], ["E","Echo"],
@@ -161,6 +180,15 @@ cmdCheatsheet.forEach(item => {
   div.className = "cmd-item";
   div.innerHTML = `<div class="cmd-command">${item.cmd}</div><div class="cmd-desc">${item.desc}</div>`;
   cmdList.appendChild(div);
+});
+
+// Linux Cheatsheet
+const linuxList = document.getElementById("linuxList");
+linuxCheatsheet.forEach(item => {
+  const div = document.createElement("div");
+  div.className = "cmd-item";
+  div.innerHTML = `<div class="cmd-command">${item.cmd}</div><div class="cmd-desc">${item.desc}</div>`;
+  linuxList.appendChild(div);
 });
 
 // Port Sniffer (Fetch-based)
