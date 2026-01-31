@@ -1,13 +1,26 @@
 const words = [
-  "apple", "banana", "cherry", "date", "elderberry", "fig", "grape", "honeydew", "kiwi", "lemon", "mango", "nectarine", "orange", "papaya", "quince", "raspberry", "strawberry", "tangerine", "ugli", "vanilla", "watermelon", "xigua", "yam", "zucchini",
-  "red", "blue", "green", "yellow", "purple", "orange", "pink", "brown", "black", "white", "gray", "gold", "silver", "teal", "indigo", "violet",
-  "cat", "dog", "bird", "fish", "hamster", "rabbit", "turtle", "lion", "tiger", "bear", "elephant", "giraffe", "zebra", "monkey", "panda", "koala", "penguin", "dolphin", "whale", "shark", "eagle", "hawk", "owl", "penguin",
-  "sun", "moon", "star", "planet", "comet", "asteroid", "galaxy", "universe", "sky", "cloud", "rain", "snow", "wind", "storm", "thunder", "lightning", "rainbow",
-  "tree", "flower", "grass", "leaf", "root", "stem", "branch", "forest", "jungle", "desert", "ocean", "river", "lake", "mountain", "hill", "valley",
-  "book", "pen", "pencil", "paper", "desk", "chair", "table", "lamp", "clock", "watch", "phone", "computer", "keyboard", "mouse", "screen", "camera",
-  "happy", "sad", "angry", "excited", "bored", "tired", "energetic", "calm", "nervous", "confident", "brave", "scared", "shy", "loud", "quiet",
-  "run", "walk", "jump", "swim", "fly", "climb", "crawl", "dance", "sing", "laugh", "cry", "eat", "drink", "sleep", "wake", "dream"
+  "time", "year", "people", "way", "day", "man", "thing", "woman", "life", "child", "world", "school", "state", "family", "student", "group", "country", "problem", "hand", "part", "place", "case", "week", "company", "system", "program", "question", "work", "government", "number", "night", "point", "home", "water", "room", "mother", "area", "money", "story", "fact", "month", "lot", "right", "study", "book", "eye", "job", "word", "business", "issue", "side", "kind", "head", "house", "service", "friend", "father", "power", "hour", "game", "line", "end", "member", "law", "car", "city", "community", "name", "president", "team", "minute", "idea", "kid", "body", "information", "back", "parent", "face", "others", "level", "office", "door", "health", "person", "art", "war", "history", "party", "result", "change", "morning", "reason", "research", "girl", "guy", "moment", "air", "teacher", "force", "education"
 ];
+
+const cmdCheatsheet = [
+  { cmd: "ipconfig /all", desc: "Show full IP configuration" },
+  { cmd: "ipconfig /flushdns", desc: "Clear DNS cache" },
+  { cmd: "ping <host> -t", desc: "Ping continuously" },
+  { cmd: "tracert <host>", desc: "Trace route to host" },
+  { cmd: "nslookup <domain>", desc: "Query DNS records" },
+  { cmd: "netstat -an", desc: "Show all open ports/connections" },
+  { cmd: "sfc /scannow", desc: "Scan and fix system files" },
+  { cmd: "chkdsk /f", desc: "Check disk for errors" },
+  { cmd: "gpupdate /force", desc: "Force Group Policy update" },
+  { cmd: "systeminfo", desc: "Show OS and hardware details" },
+  { cmd: "wmic product get name", desc: "List installed software" },
+  { cmd: "shutdown /r /t 0", desc: "Restart immediately" },
+  { cmd: "whoami", desc: "Show current user" },
+  { cmd: "net user /domain", desc: "List domain users" },
+  { cmd: "tasklist", desc: "List running processes" },
+  { cmd: "taskkill /IM <name> /F", desc: "Force kill a process" }
+];
+
 let vendors = [];
 const natoAlphabet = [
   ["A","Alpha"], ["B","Bravo"], ["C","Charlie"], ["D","Delta"], ["E","Echo"],
@@ -91,8 +104,20 @@ natoAlphabet.forEach(([letter, word]) => {
     <div class="nato-word">${word.toLowerCase()}</div>
   `;
 
+  tile.onclick = () => activateNatoTile(letter);
   natoGrid.appendChild(tile);
 });
+
+function activateNatoTile(letter) {
+  // Remove active class from all tiles
+  document.querySelectorAll(".nato-tile").forEach(t => t.classList.remove("active"));
+  
+  // Add active class to target tile
+  const tile = document.querySelector(`.nato-tile[data-letter="${letter}"]`);
+  if (tile) {
+    tile.classList.add("active");
+  }
+}
 
 // Keyboard listener for NATO widget
 document.addEventListener("keydown", (e) => {
@@ -101,11 +126,53 @@ document.addEventListener("keydown", (e) => {
 
   const key = e.key.toUpperCase();
   if (/[A-Z]/.test(key) && key.length === 1) {
-    const tile = document.querySelector(`.nato-tile[data-letter="${key}"]`);
-    if (tile) {
-      tile.classList.add("glow");
-      // Remove glow after keyup or a short timeout
-      setTimeout(() => tile.classList.remove("glow"), 300);
-    }
+    activateNatoTile(key);
   }
 });
+
+// CMD Cheatsheet
+const cmdList = document.getElementById("cmdList");
+cmdCheatsheet.forEach(item => {
+  const div = document.createElement("div");
+  div.className = "cmd-item";
+  div.innerHTML = `<div class="cmd-command">${item.cmd}</div><div class="cmd-desc">${item.desc}</div>`;
+  cmdList.appendChild(div);
+});
+
+// Port Sniffer (Fetch-based)
+const portResult = document.getElementById("portResult");
+const checkPortsBtn = document.getElementById("checkPorts");
+const portHost = document.getElementById("portHost");
+
+checkPortsBtn.onclick = async () => {
+  const host = portHost.value.trim();
+  if (!host) return;
+  
+  portResult.value = "Checking common ports... (This is browser-limited)\n";
+  const ports = [80, 443, 8080, 8443]; // Browser safe-ish ports
+  
+  for (const port of ports) {
+    try {
+      // Abuse fetch to detect connectivity
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 1500); // 1.5s timeout
+      
+      await fetch(`http://${host}:${port}`, { 
+        mode: 'no-cors', 
+        signal: controller.signal 
+      });
+      
+      clearTimeout(timeoutId);
+      portResult.value += `✅ Port ${port} Open (Web Reachable)\n`;
+    } catch (e) {
+      if (e.name === 'AbortError') {
+        portResult.value += `❌ Port ${port} Timeout/Closed\n`;
+      } else {
+         // Network error usually means connection refused or closed, but sometimes mixed content block
+         // Since we are likely in a popup, mixed content might block local IP checks if not https
+         portResult.value += `❓ Port ${port} Error (Might be Open but blocked by CORS/Mixed Content)\n`;
+      }
+    }
+  }
+  portResult.value += "\nNote: Real port scanning (TCP/UDP) is not possible in a browser extension. Use 'nmap' for accurate results.";
+};

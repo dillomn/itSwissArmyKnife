@@ -11,6 +11,8 @@
 <button data-open="ppWidget">🧠 Passphrase Generator</button>
 <button data-open="macWidget">🖥️ MAC Vendor Lookup</button>
 <button data-open="natoWidget">🅽 NATO Alphabet</button>
+<button data-open="cmdWidget">💻 CMD Cheatsheet</button>
+<button data-open="portWidget">🔌 Port Sniffer (Web)</button>
 
 <div id="pwWidget" class="widget hidden">
   <h3>Password Generator</h3>
@@ -54,6 +56,18 @@
   <div class="nato-grid" id="natoGrid"></div>
 </div>
 
+<div id="cmdWidget" class="widget hidden">
+  <h3>Windows CMD Cheatsheet</h3>
+  <div class="cmd-list" id="cmdList"></div>
+</div>
+
+<div id="portWidget" class="widget hidden">
+  <h3>Open Port Sniffer (Web)</h3>
+  <input type="text" id="portHost" placeholder="192.168.1.1 or example.com">
+  <button id="checkPorts">Check Web Ports</button>
+  <textarea id="portResult" readonly style="height: 120px"></textarea>
+  <div class="tooltip">Checks 80, 443, 8080, 8443 via Fetch</div>
+</div>
 
 <script src="popup.js"></script>
 </body>
