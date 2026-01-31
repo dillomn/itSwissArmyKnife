@@ -36,12 +36,36 @@ fetch("mac_vendors.json")
   .then(r => r.json())
   .then(data => vendors = data);
 
-document.querySelectorAll("button[data-open]").forEach(btn => {
+const homeView = document.getElementById("home");
+const navBar = document.getElementById("navBar");
+const backBtn = document.getElementById("backBtn");
+const navTitle = document.getElementById("navTitle");
+
+// Handle Menu Tile Clicks
+document.querySelectorAll(".menu-tile").forEach(btn => {
   btn.onclick = () => {
+    // Hide Home
+    homeView.classList.add("hidden");
+    
+    // Show Nav Bar
+    navBar.classList.remove("hidden");
+    navTitle.textContent = btn.dataset.title;
+    
+    // Show Widget
     document.querySelectorAll(".widget").forEach(w => w.classList.add("hidden"));
     document.getElementById(btn.dataset.open).classList.remove("hidden");
   };
 });
+
+// Handle Back Button
+backBtn.onclick = () => {
+  // Hide Widgets and Nav
+  document.querySelectorAll(".widget").forEach(w => w.classList.add("hidden"));
+  navBar.classList.add("hidden");
+  
+  // Show Home
+  homeView.classList.remove("hidden");
+};
 
 function passwordStrength(pw) {
   let score = 0;

@@ -7,13 +7,46 @@
 </head>
 <body>
 
-<button data-open="pwWidget">🔐 Password Generator</button>
-<button data-open="ppWidget">🧠 Passphrase Generator</button>
-<button data-open="macWidget">🖥️ MAC Vendor Lookup</button>
-<button data-open="natoWidget">🅽 NATO Alphabet</button>
-<button data-open="cmdWidget">💻 CMD Cheatsheet</button>
-<button data-open="portWidget">🔌 Port Sniffer (Web)</button>
+<!-- Navigation Header (Hidden on Home) -->
+<div id="navBar" class="nav-bar hidden">
+  <button id="backBtn" class="back-btn">←</button>
+  <span id="navTitle">Tool Name</span>
+</div>
 
+<!-- Home Dashboard -->
+<div id="home" class="dashboard-grid">
+  <button class="menu-tile" data-open="pwWidget" data-title="Password Gen">
+    <div class="tile-icon">🔐</div>
+    <div class="tile-label">Passwords</div>
+  </button>
+  
+  <button class="menu-tile" data-open="ppWidget" data-title="Passphrases">
+    <div class="tile-icon">🧠</div>
+    <div class="tile-label">Passphrases</div>
+  </button>
+  
+  <button class="menu-tile" data-open="macWidget" data-title="MAC Lookup">
+    <div class="tile-icon">🖥️</div>
+    <div class="tile-label">MAC Vendor</div>
+  </button>
+  
+  <button class="menu-tile" data-open="portWidget" data-title="Port Sniffer">
+    <div class="tile-icon">🔌</div>
+    <div class="tile-label">Port Sniffer</div>
+  </button>
+
+  <button class="menu-tile" data-open="natoWidget" data-title="NATO Alphabet">
+    <div class="tile-icon">🅽</div>
+    <div class="tile-label">NATO</div>
+  </button>
+  
+  <button class="menu-tile" data-open="cmdWidget" data-title="CMD Cheat">
+    <div class="tile-icon">💻</div>
+    <div class="tile-label">CMD Sheet</div>
+  </button>
+</div>
+
+<!-- Widgets -->
 <div id="pwWidget" class="widget hidden">
   <h3>Password Generator</h3>
   Length <input type="number" id="pwLength" value="16" min="4">
