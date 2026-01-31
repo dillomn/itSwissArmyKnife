@@ -21,46 +21,6 @@ const cmdCheatsheet = [
   { cmd: "taskkill /IM <name> /F", desc: "Force kill a process" }
 ];
 
-const voipCodes = {
-  "3cx": [
-    { cmd: "*777", desc: "Echo Test" },
-    { cmd: "*20*<ext>", desc: "Call Pickup (Specific)" },
-    { cmd: "*4", desc: "Login/Logout of Qs" },
-    { cmd: "*60", desc: "Paging" },
-    { cmd: "*61", desc: "Intercom" },
-    { cmd: "*9", desc: "Switch Profile (Available/Away)" },
-    { cmd: "999", desc: "Voicemail" },
-    { cmd: "*3<ext>", desc: "Park Call to Slot" },
-    { cmd: "*1<ext>", desc: "Pickup Parked Call" }
-  ],
-  "yeastar": [
-    { cmd: "*74", desc: "Call Pickup (Group)" },
-    { cmd: "*06<ext>", desc: "Call Pickup (Extension)" },
-    { cmd: "*99", desc: "Voicemail Center" },
-    { cmd: "*75<ext>", desc: "Intercom" },
-    { cmd: "*5", desc: "Call Parking" },
-    { cmd: "*05<slot>", desc: "Retrieve Parked Call" },
-    { cmd: "*68", desc: "Echo Test (varies by model)" }
-  ]
-};
-
-const voipPorts = {
-  "3cx": [
-    { cmd: "5060 (UDP/TCP)", desc: "SIP (Local/Providers)" },
-    { cmd: "5090 (UDP/TCP)", desc: "3CX Tunnel (App/SBC)" },
-    { cmd: "443 or 5001 (TCP)", desc: "HTTPS Management/WebClient" },
-    { cmd: "9000-10999 (UDP)", desc: "RTP Audio Range" },
-    { cmd: "2528 (TCP)", desc: "SMTP (if local)" }
-  ],
-  "yeastar": [
-    { cmd: "5060 (UDP/TCP)", desc: "SIP Registration" },
-    { cmd: "10000-12000 (UDP)", desc: "RTP Audio Range" },
-    { cmd: "8088 (TCP)", desc: "HTTP Web Interface" },
-    { cmd: "80 (TCP)", desc: "Linkus Provisioning" },
-    { cmd: "443 (TCP)", desc: "Linkus Server" }
-  ]
-};
-
 let vendors = [];
 const natoAlphabet = [
   ["A","Alpha"], ["B","Bravo"], ["C","Charlie"], ["D","Delta"], ["E","Echo"],
@@ -212,42 +172,6 @@ cmdCheatsheet.forEach(item => {
   div.innerHTML = `<div class="cmd-command">${item.cmd}</div><div class="cmd-desc">${item.desc}</div>`;
   cmdList.appendChild(div);
 });
-
-// VoIP Codes Logic
-const voipCodesList = document.getElementById("voipCodesList");
-const voipSystemSelect = document.getElementById("voipSystemSelect");
-
-function renderVoipCodes() {
-  const sys = voipSystemSelect.value;
-  voipCodesList.innerHTML = "";
-  voipCodes[sys].forEach(item => {
-    const div = document.createElement("div");
-    div.className = "cmd-item";
-    div.innerHTML = `<div class="cmd-command">${item.cmd}</div><div class="cmd-desc">${item.desc}</div>`;
-    voipCodesList.appendChild(div);
-  });
-}
-
-voipSystemSelect.onchange = renderVoipCodes;
-renderVoipCodes(); // Init
-
-// VoIP Ports Logic
-const voipPortsList = document.getElementById("voipPortsList");
-const voipPortSystemSelect = document.getElementById("voipPortSystemSelect");
-
-function renderVoipPorts() {
-  const sys = voipPortSystemSelect.value;
-  voipPortsList.innerHTML = "";
-  voipPorts[sys].forEach(item => {
-    const div = document.createElement("div");
-    div.className = "cmd-item";
-    div.innerHTML = `<div class="cmd-command">${item.cmd}</div><div class="cmd-desc">${item.desc}</div>`;
-    voipPortsList.appendChild(div);
-  });
-}
-
-voipPortSystemSelect.onchange = renderVoipPorts;
-renderVoipPorts(); // Init
 
 // Port Sniffer (Fetch-based)
 const portResult = document.getElementById("portResult");

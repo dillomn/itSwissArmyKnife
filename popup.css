@@ -278,6 +278,27 @@ textarea {
   color: #666;
 }
 
+/* Checkbox Row Styling */
+.checkbox-row {
+  display: flex;
+  align-items: center;
+  margin: 6px 0;
+  cursor: pointer;
+  font-size: 13px;
+  color: var(--text-dim);
+  text-transform: uppercase;
+}
+
+.checkbox-row:hover {
+  color: var(--text-main);
+}
+
+.checkbox-row input {
+  width: auto;
+  margin: 0 10px 0 0;
+  cursor: pointer;
+}
+
 /* Scrollbar Styling */
 ::-webkit-scrollbar {
   width: 8px;

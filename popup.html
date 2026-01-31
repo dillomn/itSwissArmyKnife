@@ -44,25 +44,16 @@
     <div class="tile-icon">💻</div>
     <div class="tile-label">CMD Sheet</div>
   </button>
-  <button class="menu-tile" data-open="voipCodesWidget" data-title="VoIP Codes">
-    <div class="tile-icon">📞</div>
-    <div class="tile-label">Feature Codes</div>
-  </button>
-
-  <button class="menu-tile" data-open="voipPortsWidget" data-title="VoIP Ports">
-    <div class="tile-icon">🛡️</div>
-    <div class="tile-label">Firewall Ports</div>
-  </button>
 </div>
 
 <!-- Widgets -->
 <div id="pwWidget" class="widget hidden">
   <h3>Password Generator</h3>
   Length <input type="number" id="pwLength" value="16" min="4">
-  <label><input type="checkbox" id="pwUpper" checked> Uppercase</label>
-  <label><input type="checkbox" id="pwLower" checked> Lowercase</label>
-  <label><input type="checkbox" id="pwNumbers" checked> Numbers</label>
-  <label><input type="checkbox" id="pwSymbols" checked> Symbols</label>
+  <label class="checkbox-row"><input type="checkbox" id="pwUpper" checked> Uppercase</label>
+  <label class="checkbox-row"><input type="checkbox" id="pwLower" checked> Lowercase</label>
+  <label class="checkbox-row"><input type="checkbox" id="pwNumbers" checked> Numbers</label>
+  <label class="checkbox-row"><input type="checkbox" id="pwSymbols" checked> Symbols</label>
   <button id="genPassword">Generate</button>
   <textarea id="pwResult" readonly></textarea>
   <button id="copyPassword">📋 Copy</button>
@@ -101,24 +92,6 @@
 <div id="cmdWidget" class="widget hidden">
   <h3>Windows CMD Cheatsheet</h3>
   <div class="cmd-list" id="cmdList"></div>
-</div>
-
-<div id="voipCodesWidget" class="widget hidden">
-  <h3>Feature Codes</h3>
-  <select id="voipSystemSelect">
-    <option value="3cx">3CX Phone System</option>
-    <option value="yeastar">Yeastar PBX</option>
-  </select>
-  <div class="cmd-list" id="voipCodesList"></div>
-</div>
-
-<div id="voipPortsWidget" class="widget hidden">
-  <h3>Firewall Ports</h3>
-  <select id="voipPortSystemSelect">
-    <option value="3cx">3CX Phone System</option>
-    <option value="yeastar">Yeastar PBX</option>
-  </select>
-  <div class="cmd-list" id="voipPortsList"></div>
 </div>
 
 <div id="portWidget" class="widget hidden">
