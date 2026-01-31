@@ -1,18 +1,31 @@
+:root {
+  --bg-color: #0a0a0a;
+  --panel-bg: #141414;
+  --text-main: #e0e0e0;
+  --text-dim: #888;
+  --border-color: #333;
+  --accent-color: #00ff00; /* Terminal Green */
+  --accent-dim: #006600;
+  --tile-hover: #1f1f1f;
+  --font-stack: "Consolas", "Monaco", "Courier New", monospace;
+}
+
 body {
-  background: #121212;
-  color: #e0e0e0;
-  font-family: Arial, sans-serif;
+  background: var(--bg-color);
+  color: var(--text-main);
+  font-family: var(--font-stack);
   width: 450px;
-  padding: 0; /* Remove padding from body, let containers handle it */
+  padding: 0;
   margin: 0;
+  border: 1px solid var(--border-color); /* Add outer border to look like a tool window */
 }
 
 /* Navigation Bar */
 .nav-bar {
   display: flex;
   align-items: center;
-  background: #1f1f1f;
-  border-bottom: 1px solid #333;
+  background: var(--panel-bg);
+  border-bottom: 1px solid var(--border-color);
   padding: 8px 12px;
   height: 40px;
   box-sizing: border-box;
@@ -21,7 +34,8 @@ body {
 .back-btn {
   background: transparent;
   border: none;
-  color: #fff;
+  color: var(--text-main);
+  font-family: var(--font-stack);
   font-size: 18px;
   cursor: pointer;
   width: auto;
@@ -30,13 +44,15 @@ body {
 }
 
 .back-btn:hover {
-  color: #00ff00;
+  color: var(--accent-color);
   background: transparent;
 }
 
 #navTitle {
   font-weight: bold;
   font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
 }
 
 /* Dashboard Grid */
@@ -48,34 +64,51 @@ body {
 }
 
 .menu-tile {
-  background: #1f1f1f;
-  border: 1px solid #333;
-  border-radius: 8px;
+  background: var(--panel-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 0; /* Sharp corners */
   height: 100px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  transition: transform 0.1s, background 0.2s;
+  transition: all 0.1s;
   margin: 0;
+  position: relative;
 }
 
 .menu-tile:hover {
-  background: #2a2a2a;
-  transform: translateY(-2px);
-  border-color: #555;
+  background: var(--tile-hover);
+  border-color: var(--accent-dim);
+  box-shadow: 0 0 5px rgba(0, 255, 0, 0.1);
+}
+
+.menu-tile:active {
+  transform: translateY(1px);
 }
 
 .tile-icon {
-  font-size: 32px;
+  font-size: 28px;
   margin-bottom: 8px;
+  filter: grayscale(100%); /* Make emojis look monochromatic initially */
+  transition: filter 0.2s;
+}
+
+.menu-tile:hover .tile-icon {
+  filter: grayscale(0%); /* Color on hover */
 }
 
 .tile-label {
-  font-size: 14px;
+  font-size: 13px;
   font-weight: bold;
-  color: #ccc;
+  color: var(--text-dim);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.menu-tile:hover .tile-label {
+  color: var(--text-main);
 }
 
 /* Widgets Container */
@@ -87,31 +120,56 @@ body {
   animation: fadeIn 0.2s;
 }
 
+h3 {
+  margin-top: 0;
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 8px;
+  font-size: 14px;
+  text-transform: uppercase;
+  color: var(--accent-color);
+}
+
 @keyframes fadeIn {
   from { opacity: 0; transform: translateY(5px); }
   to { opacity: 1; transform: translateY(0); }
 }
 
 button {
-  background: #1f1f1f;
-  color: #fff;
-  border: 1px solid #333;
+  background: var(--panel-bg);
+  color: var(--text-main);
+  border: 1px solid var(--border-color);
   padding: 8px;
   width: 100%;
-  margin: 4px 0;
+  margin: 6px 0;
   cursor: pointer;
-  transition: background 0.2s;
-  border-radius: 4px; /* Slight rounded corners for inner buttons */
+  transition: all 0.2s;
+  border-radius: 0; /* Sharp corners */
+  font-family: var(--font-stack);
+  font-size: 13px;
+  text-transform: uppercase;
+}
+
+button:hover {
+  background: #222;
+  border-color: var(--accent-dim);
+  color: #fff;
 }
 
 input, select, textarea {
-  width: 96%; /* Slightly reduced to ensure padding fits */
-  background: #1e1e1e;
-  color: #fff;
-  border: 1px solid #333;
+  width: 100%;
+  background: #000;
+  color: var(--accent-color); /* Terminal green text input */
+  border: 1px solid var(--border-color);
   margin: 4px 0;
-  padding: 6px;
-  box-sizing: border-box; /* Crucial for width calculations */
+  padding: 8px;
+  box-sizing: border-box;
+  font-family: var(--font-stack);
+  border-radius: 0;
+}
+
+input:focus, select:focus, textarea:focus {
+  outline: none;
+  border-color: var(--accent-color);
 }
 
 textarea {
@@ -119,29 +177,23 @@ textarea {
   resize: vertical;
 }
 
-.widget {
-  border: 1px solid #333;
-  padding: 10px;
-  margin-top: 10px;
-  background: #181818;
-}
-
 .hidden {
   display: none;
 }
 
 .strength {
-  height: 6px;
-  background: #333;
-  margin-top: 4px;
+  height: 4px;
+  background: #222;
+  margin-top: 6px;
+  border: 1px solid #333;
 }
 
 .strength-fill {
   height: 100%;
-  transition: width 0.3s;
+  transition: width 0.3s steps(5); /* Stepped animation for tech feel */
 }
 
-/* NATO Grid - Compact Layout */
+/* NATO Grid */
 .nato-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -151,64 +203,94 @@ textarea {
 
 .nato-tile {
   background: #000;
-  border-radius: 4px;
+  border: 1px solid var(--border-color);
+  border-radius: 0;
   text-align: center;
   padding: 8px 4px;
-  border: 1px solid transparent; /* Reserve space for border to prevent shifting */
-  transition: box-shadow 0.2s, background-color 0.2s;
+  transition: all 0.1s;
+  cursor: pointer;
 }
 
-/* New Glow Style: White, persistent, no shifting */
+.nato-tile:hover {
+  border-color: var(--text-dim);
+}
+
 .nato-tile.active {
-  background: #222; /* Slight bg lighten */
-  border-color: #fff; /* White border */
-  box-shadow: 0 0 8px rgba(255, 255, 255, 0.6); /* White glow */
+  background: #111;
+  border-color: var(--accent-color);
+  box-shadow: 0 0 8px rgba(0, 255, 0, 0.4);
 }
 
 .nato-tile.active .nato-letter {
-  color: #fff;
-  text-shadow: 0 0 5px #fff;
+  color: var(--accent-color);
+  text-shadow: 0 0 5px var(--accent-color);
 }
 
 .nato-letter {
   font-size: 20px;
   font-weight: bold;
-  color: #aaa;
+  color: var(--text-dim);
 }
 
 .nato-word {
   font-size: 11px;
-  color: #666;
-  text-transform: lowercase;
+  color: #555;
+  text-transform: uppercase;
 }
 
 .tooltip {
-  font-size: 0.8em;
-  color: #888;
-  margin-bottom: 5px;
-  font-style: italic;
+  font-size: 11px;
+  color: var(--text-dim);
+  margin-bottom: 10px;
   text-align: center;
+  border: 1px dashed #333;
+  padding: 4px;
 }
 
 /* CMD Cheatsheet Styles */
 .cmd-list {
   max-height: 300px;
   overflow-y: auto;
-  font-size: 0.9em;
+  font-size: 12px;
+  border: 1px solid var(--border-color);
+  background: #000;
+  padding: 4px;
 }
 
 .cmd-item {
-  border-bottom: 1px solid #333;
-  padding: 6px 0;
+  border-bottom: 1px solid #222;
+  padding: 6px 4px;
+  display: flex;
+  flex-direction: column;
+}
+
+.cmd-item:last-child {
+  border-bottom: none;
 }
 
 .cmd-command {
-  color: #00ff00;
-  font-family: monospace;
+  color: var(--accent-color);
   font-weight: bold;
+  margin-bottom: 2px;
 }
 
 .cmd-desc {
-  color: #ccc;
-  font-size: 0.85em;
+  color: #666;
+}
+
+/* Scrollbar Styling */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #111; 
+}
+
+::-webkit-scrollbar-thumb {
+  background: #333; 
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #555; 
 }

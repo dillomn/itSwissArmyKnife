@@ -44,11 +44,6 @@
     <div class="tile-icon">💻</div>
     <div class="tile-label">CMD Sheet</div>
   </button>
-  
-  <button class="menu-tile" data-open="linuxWidget" data-title="Linux Cheat">
-    <div class="tile-icon">🐧</div>
-    <div class="tile-label">Linux Sheet</div>
-  </button>
 </div>
 
 <!-- Widgets -->
@@ -69,12 +64,12 @@
 
 <div id="ppWidget" class="widget hidden">
   <h3>Passphrase Generator</h3>
-  Words <input type="number" id="ppWords" value="4">
+  Words <input type="number" id="ppWords" value="3">
   Separator <input type="text" id="ppSep" value="-">
   <select id="ppCase">
+    <option value="title" selected>TitleCase</option>
     <option value="lower">lowercase</option>
     <option value="upper">UPPERCASE</option>
-    <option value="title">TitleCase</option>
   </select>
   <button id="genPassphrase">Generate</button>
   <textarea id="ppResult" readonly></textarea>
@@ -97,11 +92,6 @@
 <div id="cmdWidget" class="widget hidden">
   <h3>Windows CMD Cheatsheet</h3>
   <div class="cmd-list" id="cmdList"></div>
-</div>
-
-<div id="linuxWidget" class="widget hidden">
-  <h3>Linux Cheatsheet</h3>
-  <div class="cmd-list" id="linuxList"></div>
 </div>
 
 <div id="portWidget" class="widget hidden">
