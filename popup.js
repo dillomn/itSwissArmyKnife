@@ -1,4 +1,13 @@
-const words = ["alpha","bravo","charlie","delta","server","packet","router"];
+const words = [
+  "apple", "banana", "cherry", "date", "elderberry", "fig", "grape", "honeydew", "kiwi", "lemon", "mango", "nectarine", "orange", "papaya", "quince", "raspberry", "strawberry", "tangerine", "ugli", "vanilla", "watermelon", "xigua", "yam", "zucchini",
+  "red", "blue", "green", "yellow", "purple", "orange", "pink", "brown", "black", "white", "gray", "gold", "silver", "teal", "indigo", "violet",
+  "cat", "dog", "bird", "fish", "hamster", "rabbit", "turtle", "lion", "tiger", "bear", "elephant", "giraffe", "zebra", "monkey", "panda", "koala", "penguin", "dolphin", "whale", "shark", "eagle", "hawk", "owl", "penguin",
+  "sun", "moon", "star", "planet", "comet", "asteroid", "galaxy", "universe", "sky", "cloud", "rain", "snow", "wind", "storm", "thunder", "lightning", "rainbow",
+  "tree", "flower", "grass", "leaf", "root", "stem", "branch", "forest", "jungle", "desert", "ocean", "river", "lake", "mountain", "hill", "valley",
+  "book", "pen", "pencil", "paper", "desk", "chair", "table", "lamp", "clock", "watch", "phone", "computer", "keyboard", "mouse", "screen", "camera",
+  "happy", "sad", "angry", "excited", "bored", "tired", "energetic", "calm", "nervous", "confident", "brave", "scared", "shy", "loud", "quiet",
+  "run", "walk", "jump", "swim", "fly", "climb", "crawl", "dance", "sing", "laugh", "cry", "eat", "drink", "sleep", "wake", "dream"
+];
 let vendors = [];
 const natoAlphabet = [
   ["A","Alpha"], ["B","Bravo"], ["C","Charlie"], ["D","Delta"], ["E","Echo"],
@@ -75,6 +84,7 @@ const natoGrid = document.getElementById("natoGrid");
 natoAlphabet.forEach(([letter, word]) => {
   const tile = document.createElement("div");
   tile.className = "nato-tile";
+  tile.dataset.letter = letter; // Add data attribute for easy lookup
 
   tile.innerHTML = `
     <div class="nato-letter">${letter}</div>
@@ -82,4 +92,20 @@ natoAlphabet.forEach(([letter, word]) => {
   `;
 
   natoGrid.appendChild(tile);
+});
+
+// Keyboard listener for NATO widget
+document.addEventListener("keydown", (e) => {
+  // Only activate if the NATO widget is visible
+  if (document.getElementById("natoWidget").classList.contains("hidden")) return;
+
+  const key = e.key.toUpperCase();
+  if (/[A-Z]/.test(key) && key.length === 1) {
+    const tile = document.querySelector(`.nato-tile[data-letter="${key}"]`);
+    if (tile) {
+      tile.classList.add("glow");
+      // Remove glow after keyup or a short timeout
+      setTimeout(() => tile.classList.remove("glow"), 300);
+    }
+  }
 });

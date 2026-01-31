@@ -2,8 +2,9 @@ body {
   background: #121212;
   color: #e0e0e0;
   font-family: Arial, sans-serif;
-  width: 340px;
+  width: 380px; /* Increased from 340px to prevent cramped scrollbars */
   padding: 10px;
+  overflow-y: hidden; /* Hide vertical scrollbar unless absolutely necessary */
 }
 
 button {
@@ -21,11 +22,12 @@ button:hover {
 }
 
 input, select, textarea {
-  width: 100%;
+  width: 95%; /* Adjusted to prevent overflow */
   background: #1e1e1e;
   color: #fff;
   border: 1px solid #333;
   margin: 4px 0;
+  padding: 4px;
 }
 
 textarea {
@@ -54,9 +56,11 @@ textarea {
 
 .nato-grid {
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
+  grid-template-columns: repeat(4, 1fr); /* 4 columns is safer for 380px */
   gap: 8px;
   margin-top: 10px;
+  max-height: 400px;
+  overflow-y: auto;
 }
 
 .nato-tile {
@@ -64,6 +68,21 @@ textarea {
   border-radius: 4px;
   text-align: center;
   padding: 10px 4px;
+  transition: all 0.1s ease-in-out;
+}
+
+.nato-tile.glow {
+  background: #00ff00; /* Hacker green */
+  color: #000;
+  box-shadow: 0 0 15px #00ff00;
+  transform: scale(1.1);
+  z-index: 10;
+  border: 1px solid #fff;
+}
+
+.nato-tile.glow .nato-word {
+  color: #000;
+  font-weight: bold;
 }
 
 .nato-letter {
@@ -75,4 +94,11 @@ textarea {
   font-size: 11px;
   color: #ccc;
   text-transform: lowercase;
+}
+
+.tooltip {
+  font-size: 0.8em;
+  color: #888;
+  margin-bottom: 5px;
+  font-style: italic;
 }
