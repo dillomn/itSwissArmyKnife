@@ -44,6 +44,11 @@
     <div class="tile-icon">💻</div>
     <div class="tile-label">CMD Sheet</div>
   </button>
+
+  <button class="menu-tile" data-open="scratchWidget" data-title="Scratchpad">
+    <div class="tile-icon">📝</div>
+    <div class="tile-label">Scratchpad</div>
+  </button>
 </div>
 
 <!-- Widgets -->
@@ -92,6 +97,12 @@
 <div id="cmdWidget" class="widget hidden">
   <h3>Windows CMD Cheatsheet</h3>
   <div class="cmd-list" id="cmdList"></div>
+</div>
+
+<div id="scratchWidget" class="widget hidden">
+  <h3>Persistent Scratchpad</h3>
+  <textarea id="scratchPad" placeholder="Type notes here... Auto-saves instantly." style="height: 250px"></textarea>
+  <button id="clearScratch" style="background: #330000; border-color: #660000; margin-top: 8px;">Clear Notes</button>
 </div>
 
 <div id="portWidget" class="widget hidden">

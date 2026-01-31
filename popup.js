@@ -173,6 +173,27 @@ cmdCheatsheet.forEach(item => {
   cmdList.appendChild(div);
 });
 
+// Persistent Scratchpad Logic
+const scratchPad = document.getElementById("scratchPad");
+const clearScratch = document.getElementById("clearScratch");
+
+// Load saved notes on startup
+scratchPad.value = localStorage.getItem("isak_scratchpad") || "";
+
+// Save on every keystroke
+scratchPad.oninput = () => {
+  localStorage.setItem("isak_scratchpad", scratchPad.value);
+};
+
+// Clear button
+clearScratch.onclick = () => {
+  // Simple confirmation to prevent accidental deletion
+  if (confirm("Are you sure you want to clear your notes?")) {
+    scratchPad.value = "";
+    localStorage.removeItem("isak_scratchpad");
+  }
+};
+
 // Port Sniffer (Fetch-based)
 const portResult = document.getElementById("portResult");
 const checkPortsBtn = document.getElementById("checkPorts");
