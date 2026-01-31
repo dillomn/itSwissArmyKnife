@@ -161,8 +161,36 @@ document.addEventListener("keydown", (e) => {
   const key = e.key.toUpperCase();
   if (/[A-Z]/.test(key) && key.length === 1) {
     activateNatoTile(key);
+    checkNatoEasterEgg(key);
   }
 });
+
+// NATO Easter Egg
+let natoSequence = 0; // Index of expected letter (0 = A)
+const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+
+function checkNatoEasterEgg(key) {
+  const expected = alphabet[natoSequence];
+  
+  if (key === expected) {
+    natoSequence++;
+    if (natoSequence === 26) {
+      // Trigger RGB Mode
+      triggerNatoParty();
+    }
+  } else {
+    // Reset if mistake
+    natoSequence = 0;
+    // Check if they started over with 'A'
+    if (key === 'A') natoSequence = 1;
+  }
+}
+
+function triggerNatoParty() {
+  document.querySelectorAll(".nato-tile").forEach(tile => {
+    tile.classList.add("rgb-mode");
+  });
+}
 
 // CMD Cheatsheet
 const cmdList = document.getElementById("cmdList");
@@ -193,6 +221,85 @@ clearScratch.onclick = () => {
     localStorage.removeItem("isak_scratchpad");
   }
 };
+
+// Incognito Bookmarks Logic
+const openCurrentIncognitoBtn = document.getElementById("openCurrentIncognito");
+const newBookmarkName = document.getElementById("newBookmarkName");
+const newBookmarkUrl = document.getElementById("newBookmarkUrl");
+const addBookmarkBtn = document.getElementById("addBookmark");
+const bookmarkList = document.getElementById("bookmarkList");
+
+// Load bookmarks
+let incognitoBookmarks = JSON.parse(localStorage.getItem("isak_bookmarks") || "[]");
+
+function renderBookmarks() {
+  bookmarkList.innerHTML = "";
+  if (incognitoBookmarks.length === 0) {
+    bookmarkList.innerHTML = "<div class='cmd-item' style='text-align:center; padding:10px; color:#555;'>No shortcuts saved</div>";
+    return;
+  }
+
+  incognitoBookmarks.forEach((bm, index) => {
+    const div = document.createElement("div");
+    div.className = "bookmark-item";
+    
+    div.innerHTML = `
+      <div class="bookmark-info">
+        <div class="bookmark-name">${bm.name}</div>
+        <div class="bookmark-url">${bm.url}</div>
+      </div>
+      <div class="bookmark-actions">
+        <button class="launch-btn">🚀</button>
+        <button class="delete-btn">✖</button>
+      </div>
+    `;
+    
+    // Handlers
+    div.querySelector(".launch-btn").onclick = () => {
+      chrome.windows.create({ url: bm.url, incognito: true });
+    };
+    
+    div.querySelector(".delete-btn").onclick = () => {
+      if (confirm("Delete this shortcut?")) {
+        incognitoBookmarks.splice(index, 1);
+        saveBookmarks();
+        renderBookmarks();
+      }
+    };
+    
+    bookmarkList.appendChild(div);
+  });
+}
+
+function saveBookmarks() {
+  localStorage.setItem("isak_bookmarks", JSON.stringify(incognitoBookmarks));
+}
+
+addBookmarkBtn.onclick = () => {
+  const name = newBookmarkName.value.trim();
+  let url = newBookmarkUrl.value.trim();
+  
+  if (!name || !url) return;
+  
+  if (!url.startsWith("http")) url = "https://" + url;
+  
+  incognitoBookmarks.push({ name, url });
+  saveBookmarks();
+  renderBookmarks();
+  
+  newBookmarkName.value = "";
+  newBookmarkUrl.value = "";
+};
+
+openCurrentIncognitoBtn.onclick = () => {
+  chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
+    if (tabs && tabs[0]) {
+      chrome.windows.create({ url: tabs[0].url, incognito: true });
+    }
+  });
+};
+
+renderBookmarks(); // Init
 
 // Port Sniffer (Fetch-based)
 const portResult = document.getElementById("portResult");

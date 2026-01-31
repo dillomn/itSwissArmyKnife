@@ -3,6 +3,10 @@
   "name": "IT Swiss Army Knife",
   "version": "1.3",
   "description": "Password generator, passphrase generator, and MAC vendor lookup",
+  "permissions": [
+    "activeTab",
+    "storage"
+  ],
   "action": {
     "default_popup": "popup.html"
   }

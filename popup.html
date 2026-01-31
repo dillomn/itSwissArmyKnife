@@ -49,6 +49,11 @@
     <div class="tile-icon">📝</div>
     <div class="tile-label">Scratchpad</div>
   </button>
+  
+  <button class="menu-tile" data-open="incognitoWidget" data-title="Incognito">
+    <div class="tile-icon">🕵️</div>
+    <div class="tile-label">Incognito</div>
+  </button>
 </div>
 
 <!-- Widgets -->
@@ -103,6 +108,16 @@
   <h3>Persistent Scratchpad</h3>
   <textarea id="scratchPad" placeholder="Type notes here... Auto-saves instantly." style="height: 250px"></textarea>
   <button id="clearScratch" style="background: #330000; border-color: #660000; margin-top: 8px;">Clear Notes</button>
+</div>
+
+<div id="incognitoWidget" class="widget hidden">
+  <h3>Incognito Shortcuts</h3>
+  <button id="openCurrentIncognito">Open Current Tab in Incognito 🕵️</button>
+  <div style="margin: 10px 0; border-bottom: 1px solid #333;"></div>
+  <input type="text" id="newBookmarkName" placeholder="Name (e.g. O365 Client A)">
+  <input type="text" id="newBookmarkUrl" placeholder="URL (https://...)">
+  <button id="addBookmark">Save Shortcut</button>
+  <div class="cmd-list" id="bookmarkList" style="margin-top: 10px; height: 180px;"></div>
 </div>
 
 <div id="portWidget" class="widget hidden">
