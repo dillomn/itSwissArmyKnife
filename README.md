@@ -1,4 +1,4 @@
-# IT Swiss Army Knife 🦞
+# IT Swiss Army Knife
 
 A "Techie-First" Chrome/Edge extension for MSPs, Sysadmins, and IT Pros.  
 Packed with quick-access tools that respect your intelligence and your dark mode preferences.
@@ -17,11 +17,6 @@ Packed with quick-access tools that respect your intelligence and your dark mode
 *   **🕵️ Incognito Tools:**
     *   One-click "Open Current Tab in Incognito".
     *   Save "Always Incognito" shortcuts (great for O365 multiple tenant management).
-
-## 🥚 Easter Eggs (Shhh)
-*   **RGB Mode:** Type the alphabet A-Z in order in the NATO tab.
-*   **CRT Mode:** Type `qwertyuiop` to toggle a retro CRT monitor filter.
-*   **BSOD:** Rage-mash your keyboard (>15 keys/sec) to trigger a fake Blue Screen of Death.
 
 ---
 
